@@ -31,7 +31,7 @@ func main() {
 	/*slice1[0] = "Kustom2"
 	fmt.Println("Nilai Array month diubah :", months)*/
 
-	slice2 := months[10:]
+	slice2 := months[9:]
 	slice3 := append(slice2, "Baru") /*function append berfungsi ketika panjang slice sudah penuh dan kita menambahkan data baru,
 	maka function tersebut akan membuat sebuah array baru dan tidak mempengaruhi array sebelumnya. Jika, slice tersebut belum full,
 	maka function append tidak membuat array dan dapat mempengaruhi data sebelumnya*/

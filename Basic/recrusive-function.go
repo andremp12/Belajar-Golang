@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func factorial(value int) int {
 	if value == 1 {
 		return 1
@@ -9,5 +11,7 @@ func factorial(value int) int {
 }
 
 func main() {
+	factorialRecrusive := factorial(6)
 
+	fmt.Print(factorialRecrusive)
 }
