@@ -48,6 +48,7 @@ func (s *serviceSatuan) Create(request request.Satuan) (response.Satuan, error) 
 
 	Satuan := database.Satuan{
 		Name: request.Name,
+		Keterangan: request.Keterangan,
 	}
 
 	Satuan_, err := s.repoSatuan.Create(Satuan)
@@ -62,6 +63,7 @@ func (s *serviceSatuan) Update(request request.Satuan, id string) (response.Satu
 	//Hapus file yang lama
 
 	Satuan.Name = request.Name
+	Satuan.Keterangan=request.Keterangan
 
 	Satuan_, err := s.repoSatuan.Update(Satuan)
 	responseTipe := response.SatuanResponse(&Satuan_)

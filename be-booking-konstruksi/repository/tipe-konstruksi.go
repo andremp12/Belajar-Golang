@@ -6,6 +6,7 @@ import (
 )
 
 type TipeKonstruksi interface {
+	GetTipeLanding() ([]database.TipeKonstruksi, error)
 	GetAllData() ([]database.TipeKonstruksi, error)
 	GetData(id string) (database.TipeKonstruksi, error)
 	Create(tipeKonstruksi database.TipeKonstruksi) (database.TipeKonstruksi, error)
@@ -19,6 +20,14 @@ type repoTipeKonstruksi struct {
 
 func NewRepoTipeKonstruksi(db *gorm.DB) *repoTipeKonstruksi {
 	return &repoTipeKonstruksi{db: db}
+}
+
+func (r *repoTipeKonstruksi) GetTipeLanding() ([]database.TipeKonstruksi, error) {
+	var tipeKonstruksis []database.TipeKonstruksi
+
+	err := r.db.Order("id desc").Limit(4).Find(&tipeKonstruksis).Error
+
+	return tipeKonstruksis, err
 }
 
 func (r *repoTipeKonstruksi) GetAllData() ([]database.TipeKonstruksi, error) {
@@ -44,7 +53,7 @@ func (r *repoTipeKonstruksi) Create(tipeKonstruksi database.TipeKonstruksi) (dat
 }
 
 func (r *repoTipeKonstruksi) Delete(tipeKonstruksi database.TipeKonstruksi) error {
-	err := r.db.Delete(&tipeKonstruksi).Error
+	err := r.db.Debug().Delete(&tipeKonstruksi).Error
 
 	return err
 }

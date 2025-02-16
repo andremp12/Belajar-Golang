@@ -1,6 +1,8 @@
 package database
 
-import "time"
+import (
+	"time"
+)
 
 type Role struct {
 	ID        int       `gorm:"type:int(1);primary_key;auto_increment"`

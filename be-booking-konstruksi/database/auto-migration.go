@@ -13,6 +13,8 @@ func AutoMigrate(db *gorm.DB) error {
 	err = db.AutoMigrate(&database.Role{})
 	err = db.AutoMigrate(&database.User{})
 	err = db.AutoMigrate(&database.Satuan{})
+	err = db.AutoMigrate(&database.AuthUser{})
+	err = db.AutoMigrate(&database.TimeLine{})
 
 	return err
 }

@@ -30,10 +30,15 @@ func (satuanController *satuanController) GetAllData(c *gin.Context) {
 		return
 	}
 
+	// response := gin.H{
+	// 	"records":Satuans,
+	// }
+
+
 	c.JSON(200, response.APIResponse{
 		Status:  "success",
 		Message: "Success Get All Data",
-		Data:    Satuans,
+		Data:  Satuans,
 	})
 }
 

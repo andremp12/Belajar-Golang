@@ -10,6 +10,7 @@ import (
 )
 
 type TipeKonstruksi interface {
+	GetTipeLanding() ([]response.TipeKonstruksi, error)
 	GetAllData() ([]response.TipeKonstruksi, error)
 	GetData(id string) (response.TipeKonstruksi, error)
 	Create(request request.TipeKonstruksi) (response.TipeKonstruksi, error)
@@ -23,6 +24,20 @@ type serviceTipeKonstruksi struct {
 
 func NewServiceTipeKonstruksi(repoTipeKonstruksi repository.TipeKonstruksi) *serviceTipeKonstruksi {
 	return &serviceTipeKonstruksi{repoTipeKonstruksi: repoTipeKonstruksi}
+}
+
+func (s *serviceTipeKonstruksi) GetTipeLanding() ([]response.TipeKonstruksi, error) {
+	var tipeKonstruksis []response.TipeKonstruksi
+
+	dataTipe, err := s.repoTipeKonstruksi.GetTipeLanding()
+
+	for _, data := range dataTipe {
+		responseTipe := response.TipeKonstruksiResponse(&data)
+		tipeKonstruksis = append(tipeKonstruksis, responseTipe)
+	}
+	fmt.Println(tipeKonstruksis)
+
+	return tipeKonstruksis, err
 }
 
 func (s *serviceTipeKonstruksi) GetAllData() ([]response.TipeKonstruksi, error) {
@@ -81,8 +96,9 @@ func (s *serviceTipeKonstruksi) Update(request request.TipeKonstruksi, id string
 	tipeKonstruksi.Name = request.Name
 	tipeKonstruksi.HargaFull = int(hargaFull)
 	tipeKonstruksi.HargaJasa = int(hargaJasa)
-	tipeKonstruksi.Image = request.Image
-
+	if request.FileImage != nil {
+		tipeKonstruksi.Image = request.Image
+	}
 	tipekonstruksi_, err := s.repoTipeKonstruksi.Update(tipeKonstruksi)
 	responseTipe := response.TipeKonstruksiResponse(&tipekonstruksi_)
 
@@ -95,6 +111,7 @@ func (s *serviceTipeKonstruksi) Delete(id string) error {
 	//Memeriksa apakah file ada di dalam folder images
 	_, err = os.Stat(tipeKonstruksi.Image)
 	if os.IsNotExist(err) {
+		err = s.repoTipeKonstruksi.Delete(tipeKonstruksi)
 		return err
 	}
 
