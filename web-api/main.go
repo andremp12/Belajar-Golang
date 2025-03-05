@@ -31,7 +31,7 @@ func main() {
 	v1.GET("/book/:id", bookHandler.GetBook)
 	v1.POST("/book", bookHandler.CreateBook)
 	v1.PUT("/book/:id", bookHandler.UpdateBook)
-	v1.DELETE("/book/:id)
+	v1.DELETE("/book/:id")
 	/*	v1.GET("/say-hello", handler.SayHello)
 		v1.GET("/books/:id", handler.BooksHandlerDetail)
 		v1.GET("/books/:id/:title", handler.BooksHandlerDetailTitle)
